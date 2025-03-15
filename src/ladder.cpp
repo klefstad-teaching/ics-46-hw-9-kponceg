@@ -7,26 +7,29 @@ void error(string word1, string word2, string msg){
 
 bool same_distance(string word1, string word2){
     for (int i = 0; i < word1.length(); i++){
-            word1[i] = '_' ; word1[i] = '_';
-            if (word1 == word2) return true;
+        string copy_word1 = word1, copy_word2 = word2;
+        copy_word1[i] = '_' ; copy_word2[i] = '_';
+        if (copy_word1 == copy_word2) return true;
     }
     return false;
 }
 
 auto small_string = [](const string& str1, const string& str2){return str1.length() < str2.length();};
 
-bool add_letter(string smaller_string, string bigger_string, int d){
+bool add_letter(string &smaller_string, string &bigger_string, int d){
     for (int i = 0; i < d; i++){
-        smaller_string.insert(i, 1, '_'); bigger_string[i] = '_';
-        if (smaller_string == bigger_string) return true;
+        string copy_smallString = smaller_string, copy_biggerString = bigger_string;
+        copy_smallString.insert(i, 1, '_'); copy_biggerString[i] = '_';
+        if (copy_smallString == copy_biggerString) return true;
     }
     return false;
 }
 
-bool remove_letter(string smaller_string, string bigger_string, int d){
+bool remove_letter(string& smaller_string, string& bigger_string, int d){
     for (int i = 0; i < d; i++){
-        bigger_string.erase(i, 1);
-        if (smaller_string == bigger_string) return true;
+        string copy_biggerString = bigger_string;
+        copy_biggerString.erase(i, 1);
+        if (smaller_string == copy_biggerString) return true;
     }
     return false;
 }
@@ -67,7 +70,7 @@ vector<string> generate_word_ladder(const string &begin_word, const string &end_
         ladder_queue.pop();
         string last_word = ladder.back();
         for (auto word : word_list){
-            if (is_adjacent(last_word, word) && !visited.contains(word)){
+            if (is_adjacent(last_word, word) && !visited.count(word)){
                 visited.insert(word);
                 vector<string> new_ladder = ladder;
                 new_ladder.push_back(word);
