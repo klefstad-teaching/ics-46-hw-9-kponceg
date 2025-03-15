@@ -72,6 +72,7 @@ vector<string> generate_word_ladder(const string &begin_word, const string &end_
                 vector<string> new_ladder = ladder;
                 new_ladder.push_back(word);
                 if (word == end_word) return new_ladder;
+                ladder_queue.push(new_ladder);
             }
         }
     }
