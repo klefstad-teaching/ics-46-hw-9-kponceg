@@ -39,3 +39,10 @@ vector<int> dijkstra_shortest_path(const Graph &G, int source, vector<int> &prev
     }
     return distances;
 }
+
+void print_path(const vector<int>& v, int total){
+    for (auto vertex: v){
+        cout << vertex << " ";
+    }
+    cout << endl << "Total cost is" << total << endl;
+}
