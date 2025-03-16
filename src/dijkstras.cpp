@@ -24,5 +24,5 @@ vector<int> dijkstra_shortest_path(const Graph &G, int source, vector<int> &prev
             }
         }
     }
-    return extract_shortest_path(distances, previous, )
+    return extract_shortest_path(distances, previous, source);
 }
