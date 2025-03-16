@@ -4,6 +4,16 @@
 #include <vector>
 
 
+vector<int> extract_shortest_path(const vector<int>& /*distances*/, const vector<int>& previous, int destination){
+    vector<int> shortest_path;
+    int current = destination;
+    while (current != -1){
+        shortest_path.push_back(current);
+        current = previous[current];
+    }
+    reverse(shortest_path.begin(), shortest_path.end());
+    return shortest_path;
+}
 
 vector<int> dijkstra_shortest_path(const Graph &G, int source, vector<int> &previous){
     int numVertices = G.size();
