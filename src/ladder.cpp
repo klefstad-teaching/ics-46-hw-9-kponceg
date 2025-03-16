@@ -1,5 +1,7 @@
 #include "ladder.h"
 #include <cassert>
+#include <cwchar>
+#include <vector>
 
 void error(string word1, string word2, string msg){
     cerr << word1 << msg << word2;
@@ -56,6 +58,7 @@ bool is_adjacent(const string &word1, const string &word2){
 
 vector<string> generate_word_ladder(const string &begin_word, const string &end_word, const set<string> &word_list){
     vector<string> partial_ladder;
+    if (word_list.count(begin_word)) return partial_ladder;
     if (begin_word == end_word) {
         partial_ladder.push_back(begin_word);
         return partial_ladder;
@@ -71,7 +74,7 @@ vector<string> generate_word_ladder(const string &begin_word, const string &end_
         ladder_queue.pop();
         string last_word = ladder.back();
         for (auto word : word_list){
-            if (is_adjacent(last_word, word) && !visited.count(word)){
+            if (!visited.count(word) && is_adjacent(last_word, word)){
                 visited.insert(word);
                 vector<string> new_ladder = ladder;
                 new_ladder.push_back(word);
@@ -103,5 +106,7 @@ void my_assert(int e) {cout << "#e" << ((e) ? " passed": " failed") << endl;}
 void verify_word_ladder(){
     set<string> word_list;
     load_words(word_list, "words.txt");
+    vector<string> path = generate_word_ladder("zoos", "sleep", word_list);
+    print_word_ladder(path);
     my_assert(generate_word_ladder("cat", "dog", word_list).size() == 4);
 }
