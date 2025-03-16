@@ -18,20 +18,14 @@ bool same_distance(string word1, string word2){
 
 auto small_string = [](const string& str1, const string& str2){return str1.length() < str2.length();};
 
-bool add_letter(string &smaller_string, string &bigger_string, int d){
+bool edit_one_letter(string& smaller_string, string& bigger_string, int d){
     for (int i = 0; i < d; i++){
-        string copy_smallString = smaller_string, copy_biggerString = bigger_string;
-        copy_smallString.insert(i, 1, '_'); copy_biggerString[i] = '_';
-        if (copy_smallString == copy_biggerString) return true;
-    }
-    return false;
-}
-
-bool remove_letter(string& smaller_string, string& bigger_string, int d){
-    for (int i = 0; i < d; i++){
-        string copy_biggerString = bigger_string;
+        string copy_biggerString = bigger_string, copy_smallString = smaller_string;
         copy_biggerString.erase(i, 1);
         if (smaller_string == copy_biggerString) return true;
+        copy_biggerString = bigger_string;
+        copy_smallString.insert(i, 1, '_'); copy_biggerString[i] = '_';
+        if (copy_smallString == copy_biggerString) return true;
     }
     return false;
 }
@@ -42,8 +36,7 @@ bool edit_distance_within(const std::string &str1, const std::string &str2, int 
     if (small_string(str1, str2)) smaller_string = str1, bigger_string = str2;
     else  smaller_string = str2, bigger_string = str1;
     if ((bigger_string.length()-smaller_string.length()) > 1) return false;
-    if (add_letter(smaller_string, bigger_string, bigger_string.length())) return true;
-    if (remove_letter(smaller_string, bigger_string, bigger_string.length())) return true;
+    if (edit_one_letter(smaller_string, bigger_string, bigger_string.length())) return true;
     return false;
 }
 
@@ -58,7 +51,6 @@ bool is_adjacent(const string &word1, const string &word2){
 
 vector<string> generate_word_ladder(const string &begin_word, const string &end_word, const set<string> &word_list){
     vector<string> partial_ladder;
-    if (word_list.count(begin_word)) return partial_ladder;
     if (begin_word == end_word) {
         partial_ladder.push_back(begin_word);
         return partial_ladder;
