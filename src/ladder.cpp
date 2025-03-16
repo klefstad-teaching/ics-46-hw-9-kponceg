@@ -39,8 +39,8 @@ bool edit_distance_within(const std::string &str1, const std::string &str2, int 
     if (small_string(str1, str2)) smaller_string = str1, bigger_string = str2;
     else  smaller_string = str2, bigger_string = str1;
     if ((bigger_string.length()-smaller_string.length()) > 1) return false;
-    if (add_letter(smaller_string, bigger_string, d)) return true;
-    if (remove_letter(smaller_string, bigger_string, d)) return true;
+    if (add_letter(smaller_string, bigger_string, bigger_string.length())) return true;
+    if (remove_letter(smaller_string, bigger_string, bigger_string.length())) return true;
     return false;
 }
 
