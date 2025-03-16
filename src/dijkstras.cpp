@@ -1,6 +1,9 @@
 #include "dijkstras.h"
 #include <algorithm>
 #include <queue>
+#include <vector>
+
+
 
 vector<int> dijkstra_shortest_path(const Graph &G, int source, vector<int> &previous){
     int numVertices = G.size();
@@ -24,5 +27,5 @@ vector<int> dijkstra_shortest_path(const Graph &G, int source, vector<int> &prev
             }
         }
     }
-    return extract_shortest_path(distances, previous, source);
+    return distances;
 }
