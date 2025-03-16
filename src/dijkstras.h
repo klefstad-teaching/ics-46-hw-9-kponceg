@@ -49,7 +49,7 @@ inline void file_to_graph(const string& filename, Graph& G) {
 
 struct compare{
     bool operator()(const pair<int, int>& dist1, const pair<int, int>& dist2){
-        return dist1 < dist2;
+        return dist1.second > dist2.second;
     }
 };
 
